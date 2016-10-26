@@ -1,0 +1,52 @@
+{
+  "AlertDefinition": {
+    "service_name": "KAFKA",
+    "component_name": "KAFKA_BROKER",
+    "name": "storm_kafka_spout_alerting",
+    "label": "Storm kafka Spout Alerting",
+    "description": "This alert is triggered if a Storm Kafka spout lag goes over a threshold.",
+    "interval": 5,
+    "scope": "SERVICE",
+    "enabled": true,
+    "source": {
+      "type": "SCRIPT",
+      "path": "stormKafkaSpoutAlert.py",
+      "parameters": [
+      {
+        "name": "zk_spout_paths",
+        "display_name": "ZK spout paths",
+        "value": "/brokers/STORM_TOPOLOGY_1_SPOUT,/brokers/STORM_TOPOLOGY_2_SPOUT",
+        "type": "STRING",
+        "description": "List of Zookeeper paths to monitor topology offsets"
+      },
+      {
+        "name": "zk_quorum",
+        "display_name": "Zookeeper Quorum",
+        "value": "zk1.host:2181,zk2.host:2181,zk3.host:2181",
+        "type": "STRING",
+        "description": "Comma separated Zookeeper addresses"
+      },
+      {
+        "name": "broker_list",
+        "display_name": "Broker List",
+        "value": "kafka1.host:6667,kafka2.host:6667,kafka3.host:6667",
+        "type": "STRING",
+        "description": "Comma separated list of broker addresses"
+      },
+      {
+        "name": "lag_tolerance",
+        "display_name": "Spout lag tolerance per partition",
+        "value": 100,
+        "type": "STRING",
+        "description": "The maximum number of messages the Spout can lag behind each partition on the topic"
+      },
+      {
+      "name": "kafka_lib",
+      "display_name": "Optional Kafka lib",
+      "value": "kafka_2.10-0.9.1.0-SNAPSHOT.jar",
+      "type": "STRING",
+      "description": "Optional Kafka lib to prepend to classpath"
+    }]
+    }
+  }
+}
